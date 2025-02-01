@@ -55,6 +55,12 @@ class EventController extends BaseController
         return Response::redirect('/events');
     }
 
+    public function show(int $id)
+    {
+        $event = $this->eventRepo->findOne($id, 'id', ['*'], true);
+        return Response::view('Event/Detail', ['event' => $event]);
+    }
+
     public function edit(int $id)
     {
         $event = $this->eventRepo->findOne($id, 'id', ['*'], true);

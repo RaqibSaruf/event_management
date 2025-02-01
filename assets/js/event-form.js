@@ -46,9 +46,6 @@ document.addEventListener("DOMContentLoaded", function () {
         if (startTime === "") {
             startTimeError.textContent = "Start time is required";
             isValid = false;
-        } else if (new Date(startTime) <= new Date()) {
-            startTimeError.textContent = "Start time must be in the future";
-            isValid = false;
         }
 
         // End Time validation

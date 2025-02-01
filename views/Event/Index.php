@@ -15,8 +15,8 @@
                         value="<?= $request->get('s') ?? '' ?>"
                         placeholder="Search..."
                         class="p-2 border border-gray-300 focus:border-gray-500 focus-visible:outline-gray-300 rounded-md text-sm" />
-                    <div id="search" class="bg-blue-300 px-2 py-1 rounded-md text-sm hover:bg-blue-400 cursor-pointer">Seacrh</div>
-                    <div id="reset" class="bg-gray-300 px-2 py-1 rounded-md text-sm hover:bg-gray-400 cursor-pointer">Reset</div>
+                    <div id="search" class="bg-blue-300 px-4 py-2 rounded-md text-sm hover:bg-blue-400 cursor-pointer">Seacrh</div>
+                    <div id="reset" class="bg-gray-300 px-4 py-2 rounded-md text-sm hover:bg-gray-400 cursor-pointer">Reset</div>
                 </div>
                 <div>
                     <a class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded shadow-md" href="<?= BASE_URL . "/events/create" ?>">Add</a>
@@ -38,7 +38,7 @@
                 </table>
             </div>
 
-            <div id="pagination" class="mt-4 flex justify-center space-x-2">
+            <div id="pagination" class="mt-4 flex justify-end space-x-2">
             </div>
         </div>
     </div>
@@ -112,6 +112,7 @@
                             <td class="px-6 py-4">${event.start_time}</td>
                             <td class="px-6 py-4">${event.end_time}</td>
                         <td class="px-6 py-4 flex items-center gap-2">
+                            <a href="${baseUrl}/events/${event.id}" class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">Detail</a>
                             <a href="${baseUrl}/events/${event.id}/edit" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Edit</a>
                             <form method="POST" action="${baseUrl}/events/${event.id}">
                                 <input type="hidden" name="_method" value="DELETE" />

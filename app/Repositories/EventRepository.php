@@ -15,7 +15,7 @@ class EventRepository implements Repository
 {
     public function __construct(private DBConnection $db) {}
 
-    public function paginate(array $filter = []): array
+    public function paginate(array $filter = [], bool $isPublic = false): array
     {
         $perPage = $filter['limit'] ?? 20;
         $currentPage = $filter['page'] ?? 1;
@@ -25,7 +25,7 @@ class EventRepository implements Repository
         $whereClause = $searchValue !== '' ? "WHERE name Like :namelikeSearch" : "";
         $params = $searchValue !== '' ? [':namelikeSearch' => "%{$searchValue}%"] : [];
 
-        if (Auth::check()) {
+        if (!$isPublic && Auth::check()) {
             if (empty($whereClause)) {
                 $whereClause = "WHERE `created_by` = :created_by";
             } else {
@@ -57,11 +57,6 @@ class EventRepository implements Repository
         $select = implode(", ", $selectFields);
         $sql = "SELECT {$select} FROM `events` WHERE `{$key}` = :{$key}";
         $params = [":{$key}" => $value];
-
-        if (Auth::check()) {
-            $sql .= " AND `created_by` = :created_by";
-            $params[':created_by'] = Auth::id();
-        }
 
         $stmt = $this->db->statement($sql, $params);
 

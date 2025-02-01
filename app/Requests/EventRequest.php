@@ -55,10 +55,8 @@ class EventRequest extends Request implements MustValidate
         if (empty($startTime)) {
             $this->errors["start_time"] = "Start time is required";
             return false;
-        } elseif (strtotime($startTime) < time()) {
-            $this->errors["start_time"] = "Start time must be in the future";
-            return false;
         }
+
         return true;
     }
     private function isValidEndTime(): bool

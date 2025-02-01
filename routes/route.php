@@ -19,9 +19,9 @@ $router->add('POST', '/register', [RegisterController::class, 'register'], [Prev
 
 
 $router->add('GET', '/events', [EventController::class, 'index'], [CheckAuth::class]);
-$router->add('GET', '/events', [EventController::class, 'index'], [CheckAuth::class]);
 $router->add('GET', '/events/create', [EventController::class, 'create'], [CheckAuth::class]);
 $router->add('POST', '/events', [EventController::class, 'save'], [CheckAuth::class]);
+$router->add('GET', '/events/{id}', [EventController::class, 'show']);
 $router->add('PUT', '/events/{id}', [EventController::class, 'update'], [CheckAuth::class]);
 $router->add('GET', '/events/{id}/edit', [EventController::class, 'edit'], [CheckAuth::class]);
 $router->add('DELETE', '/events/{id}', [EventController::class, 'delete'], [CheckAuth::class]);
@@ -29,5 +29,4 @@ $router->add('DELETE', '/events/{id}', [EventController::class, 'delete'], [Chec
 
 
 // API routes
-
 $router->add('GET', '/api/events', [EventController::class, 'eventPaginationAPI'], [CheckAuth::class]);
