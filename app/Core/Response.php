@@ -51,6 +51,12 @@ class Response
         exit;
     }
 
+    public static function refresh(): void
+    {
+        header("Refresh: 0; url=" . $_SERVER['HTTP_REFERER']);
+        exit;
+    }
+
     public static function json(array $data, int $status = 200): string
     {
         http_response_code($status);

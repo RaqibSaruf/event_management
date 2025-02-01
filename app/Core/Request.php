@@ -34,7 +34,12 @@ class Request
 
     public function method()
     {
-        return strtoupper($_SERVER['REQUEST_METHOD']);
+        $requestedMethod = strtoupper($_SERVER['REQUEST_METHOD']);
+
+        if ($requestedMethod === 'POST' && isset($_POST['_method'])) {
+            return strtoupper($_POST['_method']);
+        }
+        return $requestedMethod;
     }
 
     public function isMethod(string $method)
@@ -73,5 +78,12 @@ class Request
         }
 
         return $input[$key] ?? $default;
+    }
+
+    public function has($key)
+    {
+        $input =  array_merge($this->get(), $this->post());
+
+        return isset($input['key']);
     }
 }

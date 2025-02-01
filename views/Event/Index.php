@@ -43,7 +43,8 @@
         </div>
     </div>
     <script>
-        const apiUrl = "<?= BASE_URL . '/api/events' ?>";
+        const baseUrl = "<?= BASE_URL ?>";
+        const apiUrl = `${baseUrl}/api/events`;
         let currentPage = <?= $request->get('page') ?? 1 ?>;
         let searchQuery = "<?= $request->get('s') ?? '' ?>";
         let orderQuery = "<?= $request->get('order') ?? '' ?>";
@@ -80,7 +81,7 @@
 
                 if (response.ok) {
                     renderTable(result.data);
-                    renderPagination(result.last_page);
+                    renderPagination(result.total, result.prev_page, result.next_page);
                 } else {
                     console.error("Error fetching data", result);
                 }
@@ -93,33 +94,44 @@
             const tableBody = document.getElementById("table-body");
             tableBody.innerHTML = "";
 
+            if (data?.length == 0) {
+                const row = `
+                    <tr class="bg-white border-b text-gray-700 bg-gray-50 border-gray-300">
+                        <td class="px-6 py-4" colspan="6">No record found</td>
+                    </tr>
+                `;
+                tableBody.insertAdjacentHTML('beforeend', row);
+                return;
+            }
             data.forEach(event => {
                 const row = `
-            <tr class="bg-white border-b text-gray-700 bg-gray-50 border-gray-300">
-                <td class="px-6 py-4">${event.id}</td>
-                    <td class="px-6 py-4">${event.name}</td>
-                    <td class="px-6 py-4">${event.max_capacity}</td>
-                    <td class="px-6 py-4">${event.start_time}</td>
-                    <td class="px-6 py-4">${event.end_time}</td>
-                <td class="px-6 py-4">
-                    <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Edit</button>
-                    <button class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Delete</button>
-                </td>
-            </tr>
-        `;
+                    <tr class="bg-white border-b text-gray-700 bg-gray-50 border-gray-300">
+                        <td class="px-6 py-4">${event.id}</td>
+                            <td class="px-6 py-4">${event.name}</td>
+                            <td class="px-6 py-4">${event.max_capacity}</td>
+                            <td class="px-6 py-4">${event.start_time}</td>
+                            <td class="px-6 py-4">${event.end_time}</td>
+                        <td class="px-6 py-4 flex items-center gap-2">
+                            <a href="${baseUrl}/events/${event.id}/edit" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Edit</a>
+                            <form method="POST" action="${baseUrl}/events/${event.id}">
+                                <input type="hidden" name="_method" value="DELETE" />
+                                <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 cursor-pointer">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                `;
                 tableBody.insertAdjacentHTML('beforeend', row);
             });
         }
 
-        function renderPagination(totalPages) {
+        function renderPagination(totalItems, prevPage, nextPage) {
+            const totalPages = parseInt(Math.ceil(totalItems / 20));
             const paginationDiv = document.getElementById("pagination");
             paginationDiv.innerHTML = "";
 
-            if (totalPages <= 1) return;
-
             const prevButton = document.createElement('button');
             prevButton.textContent = 'Prev';
-            prevButton.className = 'px-2 py-1 border border-gray-300 rounded cursor-pointer hover:bg-gray-200';
+            prevButton.className = `px-2 py-1 border border-gray-300 rounded  hover:bg-gray-200 ${!prevPage ? 'disabled !bg-gray-100' : 'cursor-pointer'}`;
             prevButton.disabled = currentPage === 1;
             prevButton.onclick = () => changePage(currentPage - 1);
             paginationDiv.appendChild(prevButton);
@@ -134,7 +146,7 @@
 
             const nextButton = document.createElement('button');
             nextButton.textContent = 'Next';
-            nextButton.className = 'px-2 py-1 border border-gray-300 rounded cursor-pointer hover:bg-gray-200';
+            nextButton.className = `px-2 py-1 border border-gray-300 rounded  hover:bg-gray-200$ ${!nextPage ? 'disabled !bg-gray-100' : 'cursor-pointer'}`;
             nextButton.disabled = currentPage === totalPages;
             nextButton.onclick = () => changePage(currentPage + 1);
             paginationDiv.appendChild(nextButton);

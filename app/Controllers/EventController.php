@@ -16,10 +16,8 @@ class EventController extends BaseController
 {
     public function __construct(private EventRepository $eventRepo) {}
 
-    public function index(Request $request)
+    public function index()
     {
-        // $data = $this->eventRepo->paginate($request->get());
-        // dd($data);
         return Response::view('Event/Index');
     }
 
@@ -55,5 +53,41 @@ class EventController extends BaseController
         Session::setSuccess("Event created successfully");
 
         return Response::redirect('/events');
+    }
+
+    public function edit(int $id)
+    {
+        $event = $this->eventRepo->findOne($id, 'id', ['*'], true);
+        return Response::view('Event/Edit', ['event' => $event]);
+    }
+
+    public function update(EventRequest $request, int $id)
+    {
+        if (!$request->isValid()) {
+            throw new ValidationException($request->errors, $request->post());
+        }
+
+        $data = [
+            'name' => $request->post('name'),
+            'description' => $request->post('description'),
+            'max_capacity' => (int)$request->post('max_capacity'),
+            'start_time' => date("Y-m-d H:i:s", strtotime($request->post('start_time'))),
+            'end_time' => date("Y-m-d H:i:s", strtotime($request->post('end_time'))),
+        ];
+
+        $this->eventRepo->update($id, $data);
+
+        Session::setSuccess("Event updated successfully");
+
+        return Response::refresh();
+    }
+
+    public function delete(int $id)
+    {
+        $this->eventRepo->delete($id);
+
+        Session::setSuccess("Event deleted successfully");
+
+        return Response::refresh();
     }
 }

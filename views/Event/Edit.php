@@ -5,11 +5,12 @@
 <body>
     <?php require VIEW_PATH . "/layout/Layout.php" ?>
     <div class="md:max-w-2xl lg:max-w-3xl xl:max-w-5xl mx-auto px-4 py-4">
-        <div class="md:text-lg lg:text-xl font-bold">Create Event</div>
+        <div class="md:text-lg lg:text-xl font-bold">Edit Event</div>
         <div class="my-6">
 
-            <form id="eventCreateForm" action="<?= BASE_URL . '/events' ?>" method="POST" class="md:max-w-lg space-y-6">
+            <form id="eventCreateForm" action="<?= BASE_URL . '/events/' . $event->id ?>" method="POST" class="md:max-w-lg space-y-6">
                 <?= csrf() ?>
+                <input type="hidden" name="_method" value="PUT" />
                 <div>
                     <label for="name" class="block text-sm/6 font-medium text-gray-900">Name</label>
                     <div class="mt-2">
@@ -17,7 +18,7 @@
                             type="text"
                             name="name"
                             id="name"
-                            value="<?= input_value(null, $oldValues['name'] ?? null) ?>"
+                            value="<?= input_value($event->name, $oldValues['name'] ?? null) ?>"
                             class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-300 sm:text-sm/6">
                     </div>
                     <div id="nameError" class="text-red-500 text-sm mt-2"><?= $errors['name'] ?? '' ?></div>
@@ -29,7 +30,7 @@
                             name="description"
                             id="description"
                             class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-300 sm:text-sm/6"
-                            rows="3"><?= trim(input_value(null, $oldValues['description'] ?? null) ?? '') ?></textarea>
+                            rows="3"><?= trim(input_value($event->description, $oldValues['description'] ?? null) ?? '') ?></textarea>
                     </div>
                     <div id="descriptionError" class="text-red-500 text-sm mt-2"><?= $errors['description'] ?? '' ?></div>
                 </div>
@@ -41,7 +42,7 @@
                             type="number"
                             name="max_capacity"
                             id="max_capacity"
-                            value="<?= input_value(null, $oldValues['max_capacity'] ?? null) ?>"
+                            value="<?= input_value($event->max_capacity, $oldValues['max_capacity'] ?? null) ?>"
                             min="1"
                             step="1"
                             oninput="this.value = this.value.replace(/[^0-9]/g, '')"
@@ -57,7 +58,7 @@
                             type="datetime-local"
                             name="start_time"
                             id="start_time"
-                            value="<?= input_value(null, $oldValues['start_time'] ?? null) ?>"
+                            value="<?= input_value($event->start_time, $oldValues['start_time'] ?? null) ?>"
                             class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-300 sm:text-sm/6">
                     </div>
                     <div id="startTimeError" class="text-red-500 text-sm mt-2"><?= $errors['start_time'] ?? '' ?></div>
@@ -70,7 +71,7 @@
                             type="datetime-local"
                             name="end_time"
                             id="end_time"
-                            value="<?= input_value(null, $oldValues['end_time'] ?? null) ?>"
+                            value="<?= input_value($event->end_time, $oldValues['end_time'] ?? null) ?>"
                             class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-300 sm:text-sm/6">
                     </div>
                     <div id="endTimeError" class="text-red-500 text-sm mt-2"><?= $errors['end_time'] ?? '' ?></div>
@@ -83,7 +84,7 @@
                     <button
                         type="submit"
                         class="flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 cursor-pointer">
-                        Create Event
+                        Update Event
                     </button>
                 </div>
             </form>
