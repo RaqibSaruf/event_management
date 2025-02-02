@@ -22,7 +22,7 @@ PHP 8.2
 
 # Installation instruction
 
-1. At first copy `.env.example` and rename it to `.env`. Configure with you BASE_URL and DB credentials
+1. At first copy `.env.example` and rename it to `.env`. Configure with your BASE_URL and DB credentials
 2. Then, run `composer install`
 3. Then, run `php run-migration.php`
 
@@ -98,4 +98,4 @@ PHP 8.2
     }
     
 # Local apache2 config to run this project
-    Just clone it to your project repository 
+    Just clone it to your project directory 
