@@ -23,10 +23,10 @@
             <table class="min-w-full text-sm text-left text-gray-500">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                     <tr>
-                        <th class="px-6 py-3">#</th>
-                        <th class="px-6 py-3">Name</th>
-                        <th class="px-6 py-3">Email</th>
-                        <th class="px-6 py-3">Created At</th>
+                        <th class="px-6 py-3 cursor-pointer" onclick="sortTable('id')">#<span id="sort-id" class="ml-2"></span></th>
+                        <th class="px-6 py-3 cursor-pointer" onclick="sortTable('name')">Name<span id="sort-name" class="ml-2"></span></th>
+                        <th class="px-6 py-3 cursor-pointer" onclick="sortTable('email')">Email<span id="sort-email" class="ml-2"></span></th>
+                        <th class="px-6 py-3 cursor-pointer" onclick="sortTable('created_at')">Created At<span id="sort-created_at" class="ml-2"></span></th>
                         <th class="px-6 py-3">Actions</th>
                     </tr>
                 </thead>

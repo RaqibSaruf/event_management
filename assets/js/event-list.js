@@ -117,6 +117,32 @@ function changePage(pageNumber) {
     fetchEvents();
 }
 
+function sortTable(column) {
+    if (orderQuery === column) {
+        dirQuery = dirQuery === "asc" ? "desc" : "asc";
+    } else {
+        orderQuery = column;
+        dirQuery = "asc";
+    }
+    currentPage = 1;
+    fetchEvents();
+
+    const columns = ["id", "name", "max_capacity", "start_time", "end_time", "created_at"];
+    
+    columns.forEach(col => {
+        const iconElement = document.getElementById(`sort-${col}`);
+        if (!iconElement) return;
+
+        if (col === orderQuery) {
+            iconElement.innerHTML = dirQuery === "asc" ? "▲" : "▼";
+            iconElement.classList.add("text-blue-500", "font-bold");
+        } else {
+            iconElement.innerHTML = "";
+            iconElement.classList.remove("text-blue-500", "font-bold");
+        }
+    });
+}
+
 document.getElementById("search").addEventListener("click", function() {
     const value = document.getElementById("searchValue").value.trim();
     if (value != '') {
