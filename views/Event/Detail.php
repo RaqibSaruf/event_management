@@ -14,6 +14,7 @@ require VIEW_PATH . "/layout/Head.php" ?>
                 <h3 class="md:text-lg lg:text-xl font-bold text-gray-900">Event Detail</h3>
                 <div class="flex items-center justify-between gap-4">
                     <?php if (Auth::check()) : ?>
+                        <a class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded shadow-md" href="<?= BASE_URL  . "/events/{$event->id}/attendees/register" ?>">Register Now</a>
                         <a class="bg-gray-500 hover:bg-gray-700 text-white px-4 py-2 rounded shadow-md" href="<?= BASE_URL . "/events" ?>">Back</a>
                         <a class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded shadow-md" href="<?= BASE_URL . "/events/{$event->id}/edit" ?>">Edit</a>
                     <?php else: ?>
