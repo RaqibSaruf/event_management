@@ -14,8 +14,10 @@ class ValidationException extends HttpException
         string $message = 'Validation failed',
     ) {
         $this->statusCode = 422;
-        Session::setError($message, $errors);
-        Session::setOldValues($oldValues);
+        if (!str_contains($_SERVER['REQUEST_URI'], '/api/')) {
+            Session::setError($message, $errors);
+            Session::setOldValues($oldValues);
+        }
         parent::__construct($message);
     }
 

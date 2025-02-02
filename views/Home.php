@@ -5,6 +5,7 @@
 <body>
     <?php require VIEW_PATH . "/layout/Layout.php" ?>
     <?php require VIEW_PATH . "/components/EventList.php" ?>
+    <?php require VIEW_PATH . "/components/AttendeeFormModal.php" ?>
 
     <script>
         const isPublic = true;
@@ -16,6 +17,7 @@
         let dirQuery = "<?= $request->get('dir') ?? '' ?>";
     </script>
     <script src="<?= BASE_URL . '/assets/js/event-list.js' ?>"></script>
+    <script src="<?= BASE_URL . '/assets/js/attendee-modal-form.js' ?>"></script>
     <script src="<?= BASE_URL . '/assets/js/common.js' ?>"></script>
 </body>
 

@@ -14,11 +14,11 @@ require VIEW_PATH . "/layout/Head.php" ?>
                 <h3 class="md:text-lg lg:text-xl font-bold text-gray-900">Event Detail</h3>
                 <div class="flex items-center justify-between gap-4">
                     <?php if (Auth::check()) : ?>
-                        <a class="bg-green-500 hover:bg-green-700 text-white px-4 py-2 rounded shadow-md" href="<?= BASE_URL  . "/events/{$event->id}/attendees/register" ?>">Register Attendee</a>
+                        <div onclick="onModalOpen('<?= $event->id ?>', '<?= $event->name ?>')" class="bg-green-500 hover:bg-green-700 text-white px-4 py-2 rounded shadow-md cursor-pointer">Register Attendee</div>
                         <a class="bg-gray-500 hover:bg-gray-700 text-white px-4 py-2 rounded shadow-md" href="<?= BASE_URL . "/events" ?>">Back</a>
                         <a class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded shadow-md" href="<?= BASE_URL . "/events/{$event->id}/edit" ?>">Edit</a>
                     <?php else: ?>
-                        <a class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded shadow-md" href="<?= BASE_URL  . "/events/{$event->id}/attendees/register" ?>">Register Now</a>
+                        <div onclick="onModalOpen('<?= $event->id ?>', '<?= $event->name ?>')" class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded shadow-md cursor-pointer">Register Now</div>
                         <a class="bg-gray-500 hover:bg-gray-700 text-white px-4 py-2 rounded shadow-md" href="<?= BASE_URL ?>">Back</a>
                     <?php endif; ?>
                 </div>
@@ -67,6 +67,9 @@ require VIEW_PATH . "/layout/Head.php" ?>
         </div>
     </div>
 
+    <?php require VIEW_PATH . "/components/AttendeeFormModal.php" ?>
+
+    <script src="<?= BASE_URL . '/assets/js/attendee-modal-form.js' ?>"></script>
     <script src="<?= BASE_URL . '/assets/js/common.js' ?>"></script>
 </body>
 

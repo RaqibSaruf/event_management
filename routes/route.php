@@ -37,3 +37,4 @@ $router->add('GET', '/events/{eventId}/attendees/download', [AttendeeController:
 $router->add('GET', '/api/events', [EventController::class, 'eventPaginationAPI'], [CheckAuth::class]);
 $router->add('GET', '/api/get-events', [EventController::class, 'activeEventPaginationAPI']);
 $router->add('GET', '/api/events/{eventId}/attendees', [AttendeeController::class, 'attendeePaginationAPI'], [CheckAuth::class]);
+$router->add('POST', '/api/events/{eventId}/attendees', [AttendeeController::class, 'saveAPI']);

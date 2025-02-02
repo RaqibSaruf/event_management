@@ -13,9 +13,9 @@
                 <div id="search" class="bg-blue-300 px-4 py-2 rounded-md text-sm hover:bg-blue-400 cursor-pointer">Seacrh</div>
                 <div id="reset" class="bg-gray-300 px-4 py-2 rounded-md text-sm hover:bg-gray-400 cursor-pointer">Reset</div>
             </div>
-            <div>
+            <div class="flex items-center gap-3">
                 <a class="bg-green-500 hover:bg-green-700 text-white px-4 py-2 rounded shadow-md" href="<?= BASE_URL . "/events/{$event->id}/attendees/download" ?>">Dowload All</a>
-                <a class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded shadow-md" href="<?= BASE_URL . "/events/{$event->id}/attendees/register" ?>">Register</a>
+                <div class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded shadow-md cursor-pointer" onclick="onModalOpen('<?= $event->id ?>', '<?= $event->name ?>')">Register</div>
                 <a class="bg-gray-500 hover:bg-gray-700 text-white px-4 py-2 rounded shadow-md" href="<?= BASE_URL . "/events/{$event->id}" ?>">Back</a>
             </div>
         </div>

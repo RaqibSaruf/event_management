@@ -21,10 +21,16 @@ class Request
     {
         switch ($this->method()) {
             case "POST":
+                if ($_SERVER['HTTP_CONTENT_TYPE'] === 'application/json') {
+                    return json_decode(file_get_contents("php://input"), true);
+                }
                 return $_POST ?? [];
             case "PUT":
             case "PATCH":
             case "DELETE":
+                if ($_SERVER['HTTP_CONTENT_TYPE'] === 'application/json') {
+                    return json_decode(file_get_contents("php://input"), true);
+                }
                 $body = [];
                 parse_str(file_get_contents("php://input"), $body);
                 return $body;

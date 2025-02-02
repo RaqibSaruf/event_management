@@ -70,6 +70,7 @@ class AttendeeController extends BaseController
 
     public function save(EventRegistrationRequest $request, int $eventId)
     {
+
         if (!$request->isValid()) {
             throw new ValidationException($request->errors, $request->post(), $request->errorMsg);
         }
@@ -84,6 +85,26 @@ class AttendeeController extends BaseController
         Session::setSuccess("Registration successfull");
 
         return Response::refresh();
+    }
+
+    public function saveAPI(EventRegistrationRequest $request, int $eventId)
+    {
+
+        if (!$request->isValid()) {
+            throw new ValidationException($request->errors, $request->post(), $request->errorMsg);
+        }
+
+        $data = [
+            'name' => $request->post('name'),
+            'email' => $request->post('email'),
+            'event_id' => $eventId,
+        ];
+        $this->attendeeRepo->create($data);
+
+        return Response::json([
+            'statusCode' => 201,
+            'message' => 'Registration successfull'
+        ]);
     }
 
     public function delete(int $eventId, int $id)
