@@ -20,6 +20,36 @@ PHP 8.2
 2. Then, run `composer install`
 3. Then, run `php run-migration.php`
 
+# JSON API end point to fetch event details
+
+    endpoint: /api/events/{eventId}
+    method: GET
+    successful response example: {
+        "message": "Event details for event id: 4",
+        "data": {
+            "event": {
+                "id": 4,
+                "name": "Tournament Registration",
+                "description": "We will organize a cricket tournament, Please register now.",
+                "max_capacity": 20,
+                "start_time": "2025-01-29 01:37:00",
+                "end_time": "2025-02-13 20:25:00",
+                "created_by": 2,
+                "created_at": "2025-02-01 20:20:02",
+                "updated_at": "2025-02-02 01:42:11"
+            },
+            "totalAttendees": 2
+        }
+    }
+    error response example: {
+        "message": "Event details for event id: 4",
+        "data": {
+            "message": "Event not found",
+            "statusCode": 404,
+            "errors": []
+        }
+    }
+
 # Local nginx config to run this project
 
     server {
@@ -28,33 +58,33 @@ PHP 8.2
 
         root /var/www/projects/event_management; // change it based on you file structure
         index index.php;
-    
+
         # Disable directory listing
         autoindex off;
-    
-    
+
+
         location / {
             rewrite ^/(.*)$ /index.php last;
             try_files $uri $uri/ /index.php?$query_string;
         }
-    
+
         # Static assets (CSS, JS, images)
          location ~ ^/assets/ {
             try_files $uri =404;
         }
-    
+
         location ~ ^/(doc|sql|setup)/ {
             deny all;
         }
-    
+
         location ~ \.php$ {
             include snippets/fastcgi-php.conf;
             fastcgi_pass unix:/var/run/php/php8.3-fpm.sock;  # Change this to your PHP version
             fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
             include fastcgi_params;
         }
-    
-    
+
+
         location ~ /\.ht {
             deny all;
         }
