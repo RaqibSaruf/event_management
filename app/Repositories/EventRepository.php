@@ -107,7 +107,7 @@ class EventRepository implements Repository
 
         $stmt = $this->db->statement($sql, $param);
 
-        if ($stmt !== false && $stmt->rowCount() > 0) {
+        if ($stmt !== false) {
             return true;
         }
 
