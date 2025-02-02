@@ -2,18 +2,17 @@ Options All -Indexes
 
 RewriteEngine On
 
-RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-l
+RewriteCond %{REQUEST_FILENAME} !-d
 
-RewriteRule ^(.+)$ index.php [QSA,L]
+RewriteRule ^(.*)$ index.php [QSA,L]
 
 <IfModule mod_expires.c>
-    <filesMatch ".(gif|ico|jpg|jpeg|png|svg|webp)$">
+    <FilesMatch ".(gif|ico|jpg|jpeg|png|svg|webp)$">
         Header set Cache-Control "max-age=31536000, public"
-    </filesMatch>
+    </FilesMatch>
 
-    <filesMatch ".(js|css)$">
+    <FilesMatch ".(js|css)$">
         Header set Cache-Control "max-age=2592000, public"
-    </filesMatch>
+    </FilesMatch>
 </IfModule>

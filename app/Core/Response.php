@@ -41,7 +41,10 @@ class Response
 
     public static function redirect(string $uri = '/'): void
     {
-        header("Location: " . $uri);
+        $parseBaseUrl = parse_url(BASE_URL, PHP_URL_PATH) ?? '';
+        $parseUri =  parse_url($uri, PHP_URL_PATH);
+
+        header("Location: " . BASE_URL .  str_replace($parseBaseUrl, '', $parseUri));
         exit;
     }
 

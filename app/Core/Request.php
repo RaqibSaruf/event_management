@@ -50,7 +50,10 @@ class Request
 
     public function uri()
     {
-        return parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $parseBaseUrl = parse_url(BASE_URL, PHP_URL_PATH) ?? '';
+        $parseUri =  parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
+        return str_replace($parseBaseUrl, '', $parseUri);
     }
 
     public function get(string $key = '', $default = null): mixed

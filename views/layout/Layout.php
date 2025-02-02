@@ -22,7 +22,6 @@
                         <div class="block px-4 py-2 text-sm text-gray-700 text-center md:hidden"><?= $user->name ?></div>
                         <div class="block px-4 py-2 text-sm text-gray-700 text-center md:hidden border-b-1"><?= $user->email ?></div>
                         <form action="<?= BASE_URL . "/logout" ?>" method="POST">
-                            <?= csrf() ?>
                             <button type="submit" class="block w-full px-4 py-2 text-sm text-center text-gray-700 hover:bg-gray-200">Sign out</button>
                         </form>
                     </div>

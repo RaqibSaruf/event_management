@@ -13,7 +13,7 @@ $router->add('GET', '/', [HomeController::class, 'home'], [PreventIfAuthenticate
 
 $router->add('GET', '/login', [AuthController::class, 'loginForm'], [PreventIfAuthenticated::class]);
 $router->add('POST', '/login', [AuthController::class, 'login'], [PreventIfAuthenticated::class, VerifyCsrfToken::class]);
-$router->add('POST', '/logout', [AuthController::class, 'logout'], [CheckAuth::class, VerifyCsrfToken::class]);
+$router->add('POST', '/logout', [AuthController::class, 'logout'], [CheckAuth::class]);
 
 $router->add('GET', '/register', [RegisterController::class, 'registerForm'], [PreventIfAuthenticated::class]);
 $router->add('POST', '/register', [RegisterController::class, 'register'], [PreventIfAuthenticated::class, VerifyCsrfToken::class]);
