@@ -1,13 +1,14 @@
 # Project Overview and instructions
 
-The application stands with event management. Where anyonne can register with their email. From the admin dashboard they can add/edit/delete/view their events with specific details.
-All events are visible for guest users. They can register in any events if the event is active within timefame and have available attendee capacity. And also, view all events availbale in home page.
-Logged in user can also register their attendee manually from thepanel and see the attendee list and able to download csv of all attendees.
-All the event list and attendee list are searchable and sortable.
+This application is designed for event management. Anyone can register using their email. From the admin dashboard, users can add, edit, delete, and view events with specific details. They can manually register attendees from the panel, view the attendee list, and download a CSV file of all attendees.
+
+All events are visible to guest users. They can register for an event if it is active within the specified timeframe and has available attendee capacity and also view all available events on the homepage.
+
+Both the event list and attendee list are searchable and sortable.
 
 # Tools and Technologies
 
-For this project I am using pure PHP, Javascript and Mysql
+This project is built using pure PHP, JavaScript, and MySQL.
 
 # Minimum requirement
 
@@ -15,7 +16,7 @@ PHP 8.2
 
 # Installation instruction
 
-1. At first copy `.env.example` and paste as `.env`. Setup with you BASE_URL and DB credentials
+1. At first copy `.env.example` and rename it to `.env`. Configure with you BASE_URL and DB credentials
 2. Then, run `composer install`
 3. Then, run `php run-migration.php`
 
