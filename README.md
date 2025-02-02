@@ -54,9 +54,9 @@ PHP 8.2
 
     server {
         listen 80;
-        server_name myproject.event-management.local; // change it based on your project setup
+        server_name myproject.event-management.local; # change it based on your project setup
 
-        root /var/www/projects/event_management; // change it based on you file structure
+        root /var/www/projects/event_management; # change it based on you file structure
         index index.php;
 
         # Disable directory listing
@@ -90,3 +90,6 @@ PHP 8.2
         }
 
     }
+    
+# Local apache2 config to run this project
+    Just clone it to your project repository 
