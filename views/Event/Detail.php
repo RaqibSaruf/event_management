@@ -67,6 +67,9 @@ require VIEW_PATH . "/layout/Head.php" ?>
         </div>
     </div>
 
+    <script>
+        const baseUrl = "<?= BASE_URL ?>";
+    </script>
     <?php require VIEW_PATH . "/components/AttendeeFormModal.php" ?>
 
     <script src="<?= BASE_URL . '/assets/js/attendee-modal-form.js' ?>"></script>
