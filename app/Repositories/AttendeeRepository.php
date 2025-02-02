@@ -52,6 +52,18 @@ class AttendeeRepository implements Repository
         return Paginator::paginate($data, $total, (int)$perPage, (int)$currentPage);
     }
 
+    public function getAll(int $eventId)
+    {
+        $sql = "SELECT `id`, `name`, `email`, `created_at` FROM `attendees` WHERE `event_id` = :event_id ORDER BY `created_at` ASC";
+
+        $stmt = $this->db->statement($sql, [':event_id' => $eventId]);
+
+        if ($stmt === false) {
+            throw new HttpException("Failed to fetch attendees");
+        }
+        return $stmt->fetchAll();
+    }
+
     public function create(array $data = [])
     {
         $valuePlaceholders = array_map(fn($col) => ":$col", array_keys($data));
@@ -62,7 +74,7 @@ class AttendeeRepository implements Repository
             implode(', ', $valuePlaceholders)
         );
         $stmt = $this->db->statement($sql, $data);
-        if ($stmt !== false) {
+        if ($stmt !== false && $stmt->rowCount() > 0) {
             return $this->db->lastInsertId();
         }
 
@@ -88,5 +100,22 @@ class AttendeeRepository implements Repository
         $stmt = $this->db->statement($sql, [$key => $value]);
 
         return $stmt->fetchColumn() > 0;
+    }
+
+    public function delete(int $eventId, int $id)
+    {
+        $sql = sprintf(
+            'DELETE FROM `attendees` WHERE `id` = :id AND `event_id` = :event_id',
+        );
+        $params = [
+            ':id' => $id,
+            ':event_id' => $eventId,
+        ];
+        $stmt = $this->db->statement($sql, $params);
+        if ($stmt !== false && $stmt->rowCount() > 0) {
+            return true;
+        }
+
+        throw new HttpException("Failed to delete attendee");
     }
 }

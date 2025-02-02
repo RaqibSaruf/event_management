@@ -79,7 +79,7 @@ class EventRepository implements Repository
             implode(', ', $valuePlaceholders)
         );
         $stmt = $this->db->statement($sql, $data);
-        if ($stmt !== false) {
+        if ($stmt !== false && $stmt->rowCount() > 0) {
             return $this->db->lastInsertId();
         }
 
@@ -88,6 +88,10 @@ class EventRepository implements Repository
 
     public function update(int $id, array $data = []): bool
     {
+        if (!$data) {
+            return true;
+        }
+
         $set = [];
         $param = [];
         foreach ($data as $column => $value) {
@@ -103,7 +107,7 @@ class EventRepository implements Repository
 
         $stmt = $this->db->statement($sql, $param);
 
-        if ($stmt !== false) {
+        if ($stmt !== false && $stmt->rowCount() > 0) {
             return true;
         }
 
@@ -120,7 +124,7 @@ class EventRepository implements Repository
             ':created_by' => Auth::id()
         ];
         $stmt = $this->db->statement($sql, $params);
-        if ($stmt !== false) {
+        if ($stmt !== false && $stmt->rowCount() > 0) {
             return true;
         }
 

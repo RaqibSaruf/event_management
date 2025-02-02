@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
+use App\Core\Request;
 use App\Core\Response;
 use App\Exceptions\ValidationException;
 use App\Helpers\Session;
@@ -15,14 +16,59 @@ class AttendeeController extends BaseController
 {
     public function __construct(private EventRepository $eventRepo, private AttendeeRepository $attendeeRepo) {}
 
-    public function registerForm(int $eventId)
+    public function index(int $eventId)
     {
         $event = $this->eventRepo->findOne($eventId, 'id', ['*'], true);
 
-        return Response::view('AttendeeRegister', ['event' => $event]);
+        return Response::view('Attendee/Index', ['event' => $event]);
     }
 
-    public function register(EventRegistrationRequest $request, int $eventId)
+    public function attendeePaginationAPI(Request $request, int $eventId)
+    {
+        $filters = [
+            ...$request->get(),
+            'event_id' => $eventId
+        ];
+        $data = $this->attendeeRepo->paginate($filters, false);
+
+        return Response::json($data);
+    }
+
+    public function download(int $eventId)
+    {
+        $attendees = $this->attendeeRepo->getAll($eventId);
+
+        header('Content-Type: text/csv');
+        header('Content-Disposition: attachment; filename="attendees.csv"');
+        header('Pragma: no-cache');
+        header('Expires: 0');
+
+        $output = fopen('php://output', 'w');
+
+        fputcsv($output, ["id", "Name", "Email", "Created At"]);
+
+        foreach ($attendees as $attendee) {
+            $data = [
+                "id" => $attendee['id'],
+                "name" => $attendee['name'],
+                "email" => $attendee['email'],
+                "created_at" => $attendee['created_at'],
+            ];
+            fputcsv($output, $data);
+        }
+
+        fclose($output);
+        exit;
+    }
+
+    public function create(int $eventId)
+    {
+        $event = $this->eventRepo->findOne($eventId, 'id', ['*'], true);
+
+        return Response::view('Attendee/Create', ['event' => $event]);
+    }
+
+    public function save(EventRegistrationRequest $request, int $eventId)
     {
         if (!$request->isValid()) {
             throw new ValidationException($request->errors, $request->post(), $request->errorMsg);
@@ -36,6 +82,15 @@ class AttendeeController extends BaseController
         $this->attendeeRepo->create($data);
 
         Session::setSuccess("Registration successfull");
+
+        return Response::refresh();
+    }
+
+    public function delete(int $eventId, int $id)
+    {
+        $this->attendeeRepo->delete($eventId, $id);
+
+        Session::setSuccess("Attendee deleted successfully");
 
         return Response::refresh();
     }

@@ -13,7 +13,7 @@ require VIEW_PATH . "/layout/Head.php" ?>
         <p class="mt-2 text-sm text-gray-400"><?= $event->name ?></p>
         <div class="my-6">
 
-            <form id="eventRegistrationForm" action="<?= BASE_URL . '/events/' . $event->id . '/attendees/register'  ?>" method="POST" class="md:max-w-lg space-y-6">
+            <form id="eventRegistrationForm" action="<?= BASE_URL . '/events/' . $event->id . '/attendees'  ?>" method="POST" class="md:max-w-lg space-y-6">
                 <?= csrf() ?>
                 <div>
                     <label for="name" class="block text-sm/6 font-medium text-gray-900">Name</label>
@@ -47,7 +47,7 @@ require VIEW_PATH . "/layout/Head.php" ?>
                     <button
                         type="submit"
                         class="flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 cursor-pointer">
-                        Register Now
+                        Register
                     </button>
                 </div>
             </form>

@@ -51,33 +51,19 @@ function renderTable(data) {
         tableBody.insertAdjacentHTML('beforeend', row);
         return;
     }
-    data.forEach(event => {
+    data.forEach(attendee => {
         const row = `
             <tr class="bg-white border-b text-gray-700 bg-gray-50 border-gray-300">
-                <td class="px-6 py-4">${event.id}</td>                       
-                <td class="px-6 py-4">${event.name}</td>
-                <td class="px-6 py-4">${event.max_capacity}</td>
-                <td class="px-6 py-4">${event.start_time}</td>
-                <td class="px-6 py-4">${event.end_time}</td>
-                <td class="px-6 py-4">${event.created_at}</td>
-                ${
-                    !isPublic ? `
-                    <td class="px-6 py-4 flex items-center gap-2">
-                        <a href="${baseUrl}/events/${event.id}" class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">Detail</a>
-                        <a href="${baseUrl}/events/${event.id}/attendees" class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">Attendees</a>
-                        <a href="${baseUrl}/events/${event.id}/edit" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Edit</a>
-                        <form method="POST" action="${baseUrl}/events/${event.id}">
+                <td class="px-6 py-4">${attendee.id}</td>                       
+                <td class="px-6 py-4">${attendee.name}</td>
+                <td class="px-6 py-4">${attendee.email}</td>
+                <td class="px-6 py-4">${attendee.created_at}</td>
+                <td class="px-6 py-4 flex items-center gap-2">
+                        <form method="POST" action="${baseUrl}/events/${eventId}/attendees/${attendee.id}">
                             <input type="hidden" name="_method" value="DELETE" />
                             <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 cursor-pointer">Delete</button>
                         </form>
-                    </td>
-                    ` : `
-                    <td class="px-6 py-4 flex items-center gap-2">
-                        <a href="${baseUrl}/events/${event.id}" class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">Detail</a>
-                        <a href="${baseUrl}/events/${event.id}/attendees/register" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Register Now</a>
-                    </td>
-                    `
-                }                        
+                    </td>                       
             </tr>
         `;
         tableBody.insertAdjacentHTML('beforeend', row);

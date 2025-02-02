@@ -14,7 +14,7 @@ require VIEW_PATH . "/layout/Head.php" ?>
                 <h3 class="md:text-lg lg:text-xl font-bold text-gray-900">Event Detail</h3>
                 <div class="flex items-center justify-between gap-4">
                     <?php if (Auth::check()) : ?>
-                        <a class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded shadow-md" href="<?= BASE_URL  . "/events/{$event->id}/attendees/register" ?>">Register Now</a>
+                        <a class="bg-green-500 hover:bg-green-700 text-white px-4 py-2 rounded shadow-md" href="<?= BASE_URL  . "/events/{$event->id}/attendees/register" ?>">Register Attendee</a>
                         <a class="bg-gray-500 hover:bg-gray-700 text-white px-4 py-2 rounded shadow-md" href="<?= BASE_URL . "/events" ?>">Back</a>
                         <a class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded shadow-md" href="<?= BASE_URL . "/events/{$event->id}/edit" ?>">Edit</a>
                     <?php else: ?>
@@ -47,7 +47,16 @@ require VIEW_PATH . "/layout/Head.php" ?>
                     </div>
                     <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                         <div class="text-sm/6 font-medium text-gray-900">Total Attendee</div>
-                        <div class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0"><?= $totalAttendees ?></div>
+                        <div class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">
+                            <span><?= $totalAttendees ?></span>
+                            <?php if (Auth::check()): ?>
+                                <a class="underline ml-4 text-blue-500 hover:text-blue-300" href="<?= BASE_URL . "/events/{$event->id}/attendees" ?>">View all</a>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                        <div class="text-sm/6 font-medium text-gray-900">Created at</div>
+                        <div class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0"><?= $event->created_at ?></div>
                     </div>
                     <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                         <div class="text-sm/6 font-medium text-gray-900">Description</div>
