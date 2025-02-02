@@ -14,7 +14,7 @@ Both the event list and attendee list are searchable and sortable.
 
 # Tools and Technologies
 
-This project is built using pure PHP, JavaScript, and MySQL.
+This project is built using pure PHP, JavaScript, Tailwind CSS and MySQL.
 
 # Minimum requirement
 
