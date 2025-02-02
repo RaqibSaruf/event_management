@@ -1,5 +1,6 @@
 <?php
 
+use App\Controllers\AttendeeController;
 use App\Controllers\AuthController;
 use App\Controllers\EventController;
 use App\Controllers\HomeController;
@@ -26,7 +27,9 @@ $router->add('PUT', '/events/{id}', [EventController::class, 'update'], [CheckAu
 $router->add('GET', '/events/{id}/edit', [EventController::class, 'edit'], [CheckAuth::class]);
 $router->add('DELETE', '/events/{id}', [EventController::class, 'delete'], [CheckAuth::class]);
 
-
+$router->add('GET', '/events/{id}/attendees/register', [AttendeeController::class, 'registerForm']);
+$router->add('POST', '/events/{id}/attendees/register', [AttendeeController::class, 'register']);
 
 // API routes
 $router->add('GET', '/api/events', [EventController::class, 'eventPaginationAPI'], [CheckAuth::class]);
+$router->add('GET', '/api/get-events', [EventController::class, 'activeEventPaginationAPI']);

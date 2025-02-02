@@ -9,14 +9,9 @@ use App\Exceptions\HttpException;
 use App\Exceptions\NotFoundException;
 use App\Repositories\Interfaces\Repository;
 
-class UserRepository implements Repository
+class UserRepository
 {
     public function __construct(private DBConnection $db) {}
-
-    public function paginate(array $filter = []): array
-    {
-        return [];
-    }
 
     public function isExist($value, $key = 'email')
     {

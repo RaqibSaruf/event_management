@@ -9,6 +9,7 @@ class Request
     protected array $query;
     protected array $body;
     public array $errors = [];
+    public string $errorMsg = '';
 
     public function __construct()
     {

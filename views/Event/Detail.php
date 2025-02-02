@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php require VIEW_PATH . "/layout/Head.php" ?>
+<?php
+
+use App\Helpers\Auth;
+
+require VIEW_PATH . "/layout/Head.php" ?>
 
 <body>
     <?php require VIEW_PATH . "/layout/Layout.php" ?>
@@ -9,8 +13,13 @@
             <div class="px-4 sm:px-0 flex items-center justify-between">
                 <h3 class="md:text-lg lg:text-xl font-bold text-gray-900">Event Detail</h3>
                 <div class="flex items-center justify-between gap-4">
-                    <a class="bg-gray-500 hover:bg-gray-700 text-white px-4 py-2 rounded shadow-md" href="<?= BASE_URL . "/events" ?>">Back</a>
-                    <a class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded shadow-md" href="<?= BASE_URL . "/events/{$event->id}/edit" ?>">Edit</a>
+                    <?php if (Auth::check()) : ?>
+                        <a class="bg-gray-500 hover:bg-gray-700 text-white px-4 py-2 rounded shadow-md" href="<?= BASE_URL . "/events" ?>">Back</a>
+                        <a class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded shadow-md" href="<?= BASE_URL . "/events/{$event->id}/edit" ?>">Edit</a>
+                    <?php else: ?>
+                        <a class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded shadow-md" href="<?= BASE_URL  . "/events/{$event->id}/attendees/register" ?>">Register Now</a>
+                        <a class="bg-gray-500 hover:bg-gray-700 text-white px-4 py-2 rounded shadow-md" href="<?= BASE_URL ?>">Back</a>
+                    <?php endif; ?>
                 </div>
             </div>
             <div class="mt-6 border-t border-gray-100 rounded-md shadow-md p-4">
@@ -37,7 +46,7 @@
                     </div>
                     <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                         <div class="text-sm/6 font-medium text-gray-900">Total Attendee</div>
-                        <div class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">0</div>
+                        <div class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0"><?= $totalAttendees ?></div>
                     </div>
                     <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                         <div class="text-sm/6 font-medium text-gray-900">Description</div>

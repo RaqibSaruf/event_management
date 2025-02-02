@@ -21,6 +21,9 @@ class EventRequest extends Request implements MustValidate
         if (strlen($name) < 3) {
             $this->errors["name"] = "Name must be at least 3 characters";
             return false;
+        } else if (strlen($name) > 255) {
+            $this->errors['name'] = "Name can be max 255 characters";
+            return false;
         }
 
         return true;

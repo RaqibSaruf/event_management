@@ -27,7 +27,7 @@ class Container
         return call_user_func($this->bindings[$key]);
     }
 
-    public function resolve(string $class)
+    public function resolve(string $class, array $params = [])
     {
         $reflection = new \ReflectionClass($class);
         $constructor = $reflection->getConstructor();
@@ -36,18 +36,20 @@ class Container
             return new $class;
         }
 
-        $params = $constructor->getParameters();
+        $parameters = $constructor->getParameters();
         $dependencies = [];
 
-        foreach ($params as $param) {
+        foreach ($parameters as $param) {
             $type = $param->getType();
             $typeName = $type?->getName();
             if ($type && !$type->isBuiltin()) {
                 if ($this->has($typeName)) {
                     $dependencies[] = $this->make($typeName);
                 } elseif (class_exists($typeName)) {
-                    $dependencies[] = $this->resolve($typeName);
+                    $dependencies[] = $this->resolve($typeName, $params);
                 }
+            } else {
+                $dependencies[] = $this->castParamValue(array_shift($params), $typeName);
             }
         }
 
@@ -68,7 +70,7 @@ class Container
                 if ($this->has($typeName)) {
                     $resolvedParams[] = $this->make($typeName);
                 } elseif (class_exists($typeName)) {
-                    $resolvedParams[] = $this->resolve($typeName);
+                    $resolvedParams[] = $this->resolve($typeName, $params);
                 }
             } else {
                 $resolvedParams[] = $this->castParamValue(array_shift($params), $typeName);

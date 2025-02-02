@@ -28,6 +28,9 @@ document.addEventListener("DOMContentLoaded", function () {
         if (name.length < 3) {
             nameError.textContent = "Name must be at least 3 characters";
             isValid = false;
+        } else if (name.length > 255) {
+            nameError.textContent = "Name can be max 255 characters";
+            isValid = false;
         }
 
         // Description validation
