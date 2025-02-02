@@ -74,7 +74,7 @@ function renderTable(data) {
                     ` : `
                     <td class="px-6 py-4 flex items-center gap-2">
                         <a href="${baseUrl}/events/${event.id}" class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">Detail</a>
-                        <a href="${baseUrl}/events/${event.id}/attendees/register" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Register Now</a>
+                        <a href="${baseUrl}/events/${event.id}/attendees/register" class="px-4 py-2 bg-blue-500 text-white text-center rounded hover:bg-blue-600">Register Now</a>
                     </td>
                     `
                 }                        

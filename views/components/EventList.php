@@ -1,5 +1,5 @@
 <div class="md:max-w-2xl lg:max-w-3xl xl:max-w-5xl mx-auto px-4 py-4">
-    <div class="md:text-lg lg:text-xl font-bold"><?= $isPublic ? 'Events' : 'My Events' ?></div>
+    <div class="md:text-lg lg:text-xl font-bold"><?= $isPublic ? '' : 'My Events' ?></div>
     <div class="my-6">
         <div class="flex justify-between items-center">
             <div class="flex items-center gap-2 mb-4">
