@@ -1,8 +1,10 @@
 <?php
 
 use App\Controllers\AttendeeController;
+use App\Controllers\Api\AttendeeController as ApiAttendeeController;
 use App\Controllers\AuthController;
 use App\Controllers\EventController;
+use App\Controllers\Api\EventController as ApiEventController;
 use App\Controllers\HomeController;
 use App\Controllers\RegisterController;
 use App\Middlewares\CheckAuth;
@@ -34,7 +36,8 @@ $router->add('DELETE', '/events/{eventId}/attendees/{id}', [AttendeeController::
 $router->add('GET', '/events/{eventId}/attendees/download', [AttendeeController::class, 'download'], [CheckAuth::class]);
 
 // API routes
-$router->add('GET', '/api/events', [EventController::class, 'eventPaginationAPI'], [CheckAuth::class]);
-$router->add('GET', '/api/get-events', [EventController::class, 'activeEventPaginationAPI']);
-$router->add('GET', '/api/events/{eventId}/attendees', [AttendeeController::class, 'attendeePaginationAPI'], [CheckAuth::class]);
-$router->add('POST', '/api/events/{eventId}/attendees', [AttendeeController::class, 'saveAPI']);
+$router->add('GET', '/api/events', [ApiEventController::class, 'adminPagination'], [CheckAuth::class]);
+$router->add('GET', '/api/events/{id}', [ApiEventController::class, 'detail']);
+$router->add('GET', '/api/get-events', [ApiEventController::class, 'pagination']);
+$router->add('GET', '/api/events/{eventId}/attendees', [ApiAttendeeController::class, 'pagination'], [CheckAuth::class]);
+$router->add('POST', '/api/events/{eventId}/attendees', [ApiAttendeeController::class, 'save']);

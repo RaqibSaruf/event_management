@@ -23,17 +23,6 @@ class AttendeeController extends BaseController
         return Response::view('Attendee/Index', ['event' => $event]);
     }
 
-    public function attendeePaginationAPI(Request $request, int $eventId)
-    {
-        $filters = [
-            ...$request->get(),
-            'event_id' => $eventId
-        ];
-        $data = $this->attendeeRepo->paginate($filters, false);
-
-        return Response::json($data);
-    }
-
     public function download(int $eventId)
     {
         $attendees = $this->attendeeRepo->getAll($eventId);
@@ -85,26 +74,6 @@ class AttendeeController extends BaseController
         Session::setSuccess("Registration successfull");
 
         return Response::refresh();
-    }
-
-    public function saveAPI(EventRegistrationRequest $request, int $eventId)
-    {
-
-        if (!$request->isValid()) {
-            throw new ValidationException($request->errors, $request->post(), $request->errorMsg);
-        }
-
-        $data = [
-            'name' => $request->post('name'),
-            'email' => $request->post('email'),
-            'event_id' => $eventId,
-        ];
-        $this->attendeeRepo->create($data);
-
-        return Response::json([
-            'statusCode' => 201,
-            'message' => 'Registration successfull'
-        ]);
     }
 
     public function delete(int $eventId, int $id)

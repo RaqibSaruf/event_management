@@ -22,20 +22,6 @@ class EventController extends BaseController
         return Response::view('Event/Index', ['isPublic' => false]);
     }
 
-    public function eventPaginationAPI(Request $request)
-    {
-        $data = $this->eventRepo->paginate($request->get(), false);
-
-        return Response::json($data);
-    }
-
-    public function activeEventPaginationAPI(Request $request)
-    {
-        $data = $this->eventRepo->paginate($request->get(), true);
-
-        return Response::json($data);
-    }
-
     public function create()
     {
         return Response::view('Event/Create');
