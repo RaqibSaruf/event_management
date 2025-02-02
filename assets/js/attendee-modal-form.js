@@ -64,6 +64,10 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         if (isValid) {
+            const eventRegistrationSubmitBtn = document.getElementById("eventRegistrationSubmitBtn");
+            eventRegistrationSubmitBtn.disabled = true;
+            const btnLoading = document.getElementById("btnLoading");
+            btnLoading.classList.remove("hidden");
             const response = await fetch(`${baseUrl}${`/api/events/${eventId}/attendees` }`, {
                 method: "POST",
                 headers: {
@@ -84,8 +88,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 setTimeout(() => {
                     closModalWithReset();
                     document.getElementById("modalMsg").textContent = "";
-                }, 3000);
+                }, 2000);
             }
+
+            eventRegistrationSubmitBtn.disabled = false;
+            btnLoading.classList.add("hidden");
         }
     });
 });

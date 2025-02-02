@@ -37,9 +37,10 @@
             <div class="flex items-center gap-6">
                 <button type="button" id="closeModalBtn" class="cursor-pointer px-4 py-2 bg-gray-500 text-white rounded-md">Cancel</button>
                 <button
+                    id="eventRegistrationSubmitBtn"
                     type="submit"
                     class="flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 cursor-pointer">
-                    Register
+                    Register <span id="btnLoading" class="hidden ml-4">Loading ...</span>
                 </button>
             </div>
         </form>
