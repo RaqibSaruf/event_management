@@ -6,6 +6,12 @@ All events are visible to guest users. They can register for an event if it is a
 
 Both the event list and attendee list are searchable and sortable.
 
+# Application Link: 
+    http://63.142.255.105
+# Login Credentials:
+    Email: raqibhasan.2120@gmail.com
+    Password: 12345678
+
 # Tools and Technologies
 
 This project is built using pure PHP, JavaScript, and MySQL.
