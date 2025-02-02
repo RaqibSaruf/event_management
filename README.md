@@ -22,41 +22,41 @@ PHP 8.2
 
 # Local nginx config to run this project
 
-server {
-listen 80;
-server_name myproject.event-management.local; // change it based on your project setup
+    server {
+        listen 80;
+        server_name myproject.event-management.local; // change it based on your project setup
 
-    root /var/www/projects/event_management; // change it based on you file structure
-    index index.php;
+        root /var/www/projects/event_management; // change it based on you file structure
+        index index.php;
+    
+        # Disable directory listing
+        autoindex off;
+    
+    
+        location / {
+            rewrite ^/(.*)$ /index.php last;
+            try_files $uri $uri/ /index.php?$query_string;
+        }
+    
+        # Static assets (CSS, JS, images)
+         location ~ ^/assets/ {
+            try_files $uri =404;
+        }
+    
+        location ~ ^/(doc|sql|setup)/ {
+            deny all;
+        }
+    
+        location ~ \.php$ {
+            include snippets/fastcgi-php.conf;
+            fastcgi_pass unix:/var/run/php/php8.3-fpm.sock;  # Change this to your PHP version
+            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+            include fastcgi_params;
+        }
+    
+    
+        location ~ /\.ht {
+            deny all;
+        }
 
-    # Disable directory listing
-    autoindex off;
-
-
-    location / {
-        rewrite ^/(.*)$ /index.php last;
-        try_files $uri $uri/ /index.php?$query_string;
     }
-
-    # Static assets (CSS, JS, images)
-     location ~ ^/assets/ {
-        try_files $uri =404;
-    }
-
-    location ~ ^/(doc|sql|setup)/ {
-        deny all;
-    }
-
-    location ~ \.php$ {
-        include snippets/fastcgi-php.conf;
-        fastcgi_pass unix:/var/run/php/php8.3-fpm.sock;  # Change this to your PHP version
-        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-        include fastcgi_params;
-    }
-
-
-    location ~ /\.ht {
-        deny all;
-    }
-
-}
