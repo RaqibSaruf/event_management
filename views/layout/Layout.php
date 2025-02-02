@@ -3,6 +3,9 @@
         <a href="<?= BASE_URL ?>" class="pl-4 md:pl-8 lg:pl-24 text-sm md:text-base lg:text-xl font-bold">Event Management</a>
         <?php if (!$user): ?>
             <div class="pr-4 md:pr-8 lg:pr-24 text-sm md:text-base flex items-center gap-4 md:gap-6">
+                <?php if ($request->uri() !== '/') : ?>
+                    <a href="<?= BASE_URL  ?>">Home</a>
+                <?php endif; ?>
                 <?php if ($request->uri() !== '/login') : ?>
                     <a href="<?= BASE_URL . '/login' ?>">Login</a>
                 <?php endif; ?>
